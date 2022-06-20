@@ -24,7 +24,7 @@
                     <b-table striped hover :items="g.Study" :fields="fields">
                       <template #cell()="data">
                         <div>
-                          <b-button cv-b-modal.modal data-bs-toggle="modal" data-bs-target="#exampleModal">Открыть
+                          <b-button cv-b-modal.modal  data-bs-toggle="modal" data-bs-target="#exampleModal">Открыть
                             модальное окно
                           </b-button>
                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -84,7 +84,40 @@
 
                                     </b-table>
                                   </b-tab>
-                                  </b-tabs>
+
+                                  <b-tab title="Мероприятия">
+                                    <div style="padding: 10px">
+                                      <input
+                                          type="date"
+                                          :value="datee"
+                                          @input="event => datee = event.target.value">
+                                      <b-form-input placeholder="Вид мероприятия" v-model="TypeEvents"></b-form-input>
+                                      <b-form-input placeholder="Наименование" v-model="NameEvents"></b-form-input>
+                                      <b-form-input placeholder="Роль" v-model="Role"></b-form-input>
+                                      <b-form-input placeholder="Примечание" v-model="Note"></b-form-input>
+                                    </div>
+                                    <b-button @click="getEventsStudent">+ Добавить</b-button>
+                                    <b-table striped hover :items="Events">
+                                    </b-table>
+                                  </b-tab>
+
+                                  <b-tab title="Портфолио">
+                                    <div style="padding: 10px">
+                                      <b-form-input placeholder="Наименование" v-model="NamePortfolio"></b-form-input>
+                                      <b-form-input placeholder="Вид мероприятия" v-model="TypeEventsPortfolio"></b-form-input>
+                                      <b-form-input placeholder="Вид достижеения" v-model="TypeAchivement"></b-form-input>
+                                      <b-form-input placeholder="Уровень достижения" v-model="LevelAchivement"></b-form-input>
+                                      <b-form-input placeholder="Документ" v-model="Document"></b-form-input>
+                                    </div>
+                                    <b-button @click="getPortfolioStudent">+ Добавить</b-button>
+                                    <b-table striped hover :items="Portfolio">
+                                    </b-table>
+                                  </b-tab>
+
+                                </b-tabs>
+
+
+
                                 <div class="modal-footer">
 
                                 </div>
@@ -137,7 +170,19 @@ export default {
       Base:'',
       Calls:'',
       MagnificationsStudent: [],
-      Magnifications:''
+      Magnifications:'',
+      Events: [],
+      TypeEvents:'',
+      NameEvents:'',
+      Role:'',
+      Note:'',
+      datee: new Date(),
+      Portfolio: [],
+      NamePortfolio:'',
+      TypeEventsPortfolio:'',
+      TypeAchivement:'',
+      LevelAchivement:'',
+      Document:''
     }
 
 
@@ -162,6 +207,24 @@ export default {
     getMagnificationsStudent(){
       this.MagnificationsStudent.push({
         Magnifications: this.Magnifications
+      })
+    },
+    getEventsStudent(){
+      this.Events.push({
+        TypeEvents: this.TypeEvents,
+        NameEvents: this.NameEvents,
+        Role: this.Role,
+        Note: this.Note,
+        DDdate: this.datee
+      })
+    },
+    getPortfolioStudent(){
+      this.Portfolio.push({
+        NamePortfolio: this.NamePortfolio,
+        TypeEventsPortfolio: this.TypeEventsPortfolio,
+        TypeAchivement: this.TypeAchivement,
+        LevelAchivement: this.LevelAchivement,
+        Document: this.Document
       })
     }
   },
