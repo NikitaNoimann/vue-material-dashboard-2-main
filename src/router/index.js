@@ -27,7 +27,7 @@ const routes = [
   },
   {
     path: "/billing",
-    name: "Отчеты",
+    name: "Документы",
     component: Billing,
   },
   {

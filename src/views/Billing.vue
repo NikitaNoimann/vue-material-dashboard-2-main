@@ -13,6 +13,11 @@
             <b-card-text></b-card-text>
             <b-table striped hover :items="store2.star"></b-table>
           </b-tab>
+          <b-tab title="Характеристика на студента">
+            <CharacteristicsForAStudent></CharacteristicsForAStudent>
+            <b-card-text></b-card-text>
+            <b-table striped hover :items="store4.stady4"></b-table>
+          </b-tab>
           <b-tab title="Отчет куратора">
             <b-card-text>Где-то записано</b-card-text>
           </b-tab>
@@ -28,17 +33,19 @@ import MaterialAid from "@/My components/MaterialAid";
 import {store} from "@/My components/MarerialAidStore";
 import Incentives from "@/My components/Incentives";
 import {store2} from "@/My components/IncentivesMoney";
-
+import {store4} from "@/My components/CharacteristicsForASrudentStore";
+import CharacteristicsForAStudent from "@/My components/CharacteristicsForAStudent";
 export default {
   name: "nav-pill",
-  components: {MaterialAid, Incentives},
+  components: {CharacteristicsForAStudent, MaterialAid, Incentives,},
   mounted() {
     setNavPills();
   },
   data() {
     return {
       store,
-      store2
+      store2,
+      store4
     }
   }
 };
