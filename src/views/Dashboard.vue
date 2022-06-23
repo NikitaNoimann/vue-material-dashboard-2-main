@@ -1,4 +1,5 @@
 <template>
+
   <div class="py-4 container-fluid">
     <div class="row mb-4">
       <div class="col-lg-12 position-relative z-index-2">
@@ -49,6 +50,7 @@
           </div>
         </div>
         <div class="row mt-4">
+          {{rule34.rule.rule}}
           <div class="col-lg-4 col-md-6 mt-4">
             <chart-holder-card
               title="Website Views"
@@ -250,10 +252,12 @@ import team1 from "@/assets/img/team-1.jpg";
 import team2 from "@/assets/img/team-2.jpg";
 import team3 from "@/assets/img/team-3.jpg";
 import team4 from "@/assets/img/team-4.jpg";
+import {rule34} from "@/My components/CallsWithATablet";
 export default {
   name: "dashboard-default",
   data() {
     return {
+      rule34,
       logoXD,
       team1,
       team2,

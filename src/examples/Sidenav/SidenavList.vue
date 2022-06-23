@@ -4,25 +4,26 @@
     id="sidenav-collapse-main"
   >
     <ul class="navbar-nav">
+<!--      <li class="nav-item">-->
+<!--        <sidenav-collapse-->
+<!--          url="#"-->
+<!--          :aria-controls="''"-->
+<!--          v-bind:collapse="false"-->
+<!--          collapseRef="dashboard"-->
+<!--          navText="Dashboard"-->
+<!--        >-->
+<!--          <template v-slot:icon>-->
+<!--            <i class="material-icons-round opacity-10 fs-5">dashboard</i>-->
+<!--          </template>-->
+<!--        </sidenav-collapse>-->
+<!--      </li>-->
+      <template v-if="rule34.rule === 'Admin' || rule34.rule === 'Староста' ">
       <li class="nav-item">
         <sidenav-collapse
           url="#"
           :aria-controls="''"
           v-bind:collapse="false"
-          collapseRef="dashboard"
-          navText="Dashboard"
-        >
-          <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">dashboard</i>
-          </template>
-        </sidenav-collapse>
-      </li>
-      <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="tables"
+          collapseRef="/tables"
           navText="Посещаемость"
         >
           <template v-slot:icon>
@@ -30,12 +31,14 @@
           </template>
         </sidenav-collapse>
       </li>
+      </template>
+      <template v-if="rule34.rule === 'Admin'">
       <li class="nav-item">
         <sidenav-collapse
           url="#"
           :aria-controls="''"
           v-bind:collapse="false"
-          collapseRef="billing"
+          collapseRef="/billing"
           navText="Документы"
         >
           <template v-slot:icon>
@@ -43,6 +46,7 @@
           </template>
         </sidenav-collapse>
       </li>
+      </template>
 <!--      <li class="nav-item">-->
 <!--        <sidenav-collapse-->
 <!--          url="#"-->
@@ -56,12 +60,27 @@
 <!--          </template>-->
 <!--        </sidenav-collapse>-->
 <!--      </li>-->
+      <template v-if="rule34.rule === 'Admin'">
+      <li class="nav-item">
+        <sidenav-collapse
+            url="#"
+            :aria-controls="''"
+            v-bind:collapse="false"
+            collapseRef="/profile"
+            navText="Карточки студентов"
+        >
+          <template v-slot:icon>
+            <i class="material-icons-round opacity-10 fs-5">person</i>
+          </template>
+        </sidenav-collapse>
+      </li>
+      </template>
       <li class="mt-3 nav-item">
         <h6
           class="text-xs ps-4 text-uppercase font-weight-bolder text-white"
           :class="this.$store.state.isRTL ? 'me-4' : 'ms-2'"
         >
-          ACCOUNT PAGES
+          Авторизация
         </h6>
       </li>
       <li class="nav-item">
@@ -69,28 +88,15 @@
           url="#"
           :aria-controls="''"
           v-bind:collapse="false"
-          collapseRef="profile"
-          navText="Profile"
-        >
-          <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">person</i>
-          </template>
-        </sidenav-collapse>
-      </li>
-      <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="sign-in"
-          navText="SignIn"
+          collapseRef="/sign-in"
+          navText="Войти"
         >
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">login</i>
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+<!--      <li class="nav-item">
         <sidenav-collapse
           url="#"
           :aria-controls="''"
@@ -102,12 +108,13 @@
             <i class="material-icons-round opacity-10 fs-5">assignment</i>
           </template>
         </sidenav-collapse>
-      </li>
+      </li>-->
     </ul>
   </div>
 </template>
 <script>
 import SidenavCollapse from "./SidenavCollapse.vue";
+import {rule34} from "@/My components/CallsWithATablet";
 
 export default {
   name: "SidenavList",
@@ -118,7 +125,8 @@ export default {
     return {
       title: "Soft UI Dashboard PRO",
       controls: "dashboardsExamples",
-      isActive: "active"
+      isActive: "active",
+      rule34
     };
   },
   components: {

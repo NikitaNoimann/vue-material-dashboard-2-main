@@ -21,7 +21,7 @@
       </div>
       <hr class="my-1 horizontal dark" />
       <div class="pt-0 card-body pt-sm-3">
-        <!-- Sidebar Backgrounds -->
+         Sidebar Backgrounds
         <div>
           <h6 class="mb-0">Цветовая палитра</h6>
         </div>
@@ -62,7 +62,7 @@
             ></span>
           </div>
         </a>
-        <!-- Sidenav Type -->
+         Sidenav Type
         <div class="mt-3">
           <h6 class="mb-0">Фон панели навигации</h6>
           <p class="text-sm"></p>
@@ -84,14 +84,14 @@
           >
             Прозрачный
           </button>
-          <button
+<!--          <button
             id="btn-white"
             class="px-3 mb-2 btn bg-gradient-dark ms-2"
             :class="sidebarType === 'bg-white' ? 'active' : ''"
             @click="sidebar('bg-white')"
           >
             Белый
-          </button>
+          </button>-->
         </div>
         <p class="text-sm d-xl-none d-block mt-2">
           You can change the sidenav type just on desktop view.

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Dashboard from "../views/Dashboard.vue";
+//import Dashboard from "../views/Dashboard.vue";
 import Tables from "../views/Tables.vue";
 import Billing from "../views/Billing.vue";
 import RTL from "../views/Rtl.vue";
@@ -9,21 +9,29 @@ import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import Weekly from "@/views/components/Weekly";
 import Month from "@/views/components/Month";
+import GroupPage from "@/My components/GroupPage";
+import GroupPageRed from "@/My components/GroupPageRed";
+import start from "@/views/start";
 const routes = [
   {
     path: "/",
     name: "/",
-    redirect: "/dashboard",
+    redirect: "/start",
   },
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: Dashboard,
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   component: Dashboard,
+  // },
   {
     path: "/tables",
     name: "Посещаемость",
     component: Tables,
+  },
+  {
+    path: "/start",
+    name:"привет",
+    component: start
   },
   {
     path: "/billing",
@@ -41,7 +49,7 @@ const routes = [
     component: Notifications,
   },
   {
-    path: "/profile",
+    path: "/profile/",
     name: "Profile",
     component: Profile,
   },
@@ -65,7 +73,19 @@ const routes = [
     name: "Month",
     component: Month,
   },
+  {
+    path: "/:groupPage",
+    name: "Groupe",
+    component: GroupPage,
+  },
+  {
+    path: "/Student/:GroupPageRed",
+    name: "Groupered",
+    component: GroupPageRed,
+  }
 ];
+
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

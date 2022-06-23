@@ -15,7 +15,7 @@
 
 
       <b-form-input v-model="Cause" placeholder="Причина"></b-form-input>
-      <b-button @click="save">Сохранить</b-button>
+      <b-button variant="success" @click="save">Сохранить</b-button>
       <b-button @click="renderDoc">Download Word Document</b-button>
   </div>
 </template>

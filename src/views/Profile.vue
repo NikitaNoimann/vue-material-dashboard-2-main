@@ -18,13 +18,14 @@
             <div class="table-responsive p-0">
               <!--              eslint-disable -->
               <div v-for="g in Group">
-                <b-button v-b-toggle="g.Name" variant="primary">{{ g.Name }}</b-button>
+                <b-button variant="success" @click="goToPage(g.Name)">{{ g.Name }}</b-button>
+<!--                <b-button @click="findByStudy(g.Name)" v-b-toggle="g.Name" variant="primary">{{ g.Name }}</b-button>-->
                 <b-collapse v-bind:id="g.Name" class="mt-2">
                   <b-card>
-                    <b-table striped hover :items="g.Study" :fields="fields">
+                    <b-table striped hover :items="g.student" :fields="['student']" >
                       <template #cell()="data">
                         <div>
-                          <b-button cv-b-modal.modal  data-bs-toggle="modal" data-bs-target="#exampleModal">Открыть
+                          <b-button cv-b-modal.modal data-bs-toggle="modal" data-bs-target="#exampleModal">Открыть
                             модальное окно
                           </b-button>
                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -32,7 +33,9 @@
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Карточка студента {{data.item.FIO }}</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">Карточка студента {{
+                                      data.item.FIO
+                                    }}</h5>
 
                                 </div>
                                 <div class="modal-body">
@@ -48,19 +51,19 @@
                                   <h5>Семья:</h5>
                                 </div>
                                 <b-tabs content-class="mt-3">
-                                <b-tab title="Родители" active>
-                                  <div style="padding: 10px">
-                                  <b-form-input placeholder="ФИО" v-model="FioFamily"></b-form-input>
-                                  <b-form-input placeholder="Является" v-model="StatusFamily"></b-form-input>
-                                  <b-form-input placeholder="Телефон" v-model="PhoneFamily"></b-form-input>
-                                  <b-form-input placeholder="Работа" v-model="WorkFamily"></b-form-input>
-                                  <b-form-input placeholder="Адрес" v-model="AddressFamily"></b-form-input>
-                                  </div>
-                                  <b-button @click="getFamilyStudent">+ Добавить</b-button>
-                                  <b-table striped hover :items="Family">
+                                  <b-tab title="Родители" active>
+                                    <div style="padding: 10px">
+                                      <b-form-input placeholder="ФИО" v-model="FioFamily"></b-form-input>
+                                      <b-form-input placeholder="Является" v-model="StatusFamily"></b-form-input>
+                                      <b-form-input placeholder="Телефон" v-model="PhoneFamily"></b-form-input>
+                                      <b-form-input placeholder="Работа" v-model="WorkFamily"></b-form-input>
+                                      <b-form-input placeholder="Адрес" v-model="AddressFamily"></b-form-input>
+                                    </div>
+                                    <b-button @click="getFamilyStudent">+ Добавить</b-button>
+                                    <b-table striped hover :items="Family">
 
-                                  </b-table>
-                                </b-tab>
+                                    </b-table>
+                                  </b-tab>
                                   <b-tab title="Звонки родителям">
                                     <div style="padding: 10px">
                                       <input
@@ -104,22 +107,20 @@
                                   <b-tab title="Портфолио">
                                     <div style="padding: 10px">
                                       <b-form-input placeholder="Наименование" v-model="NamePortfolio"></b-form-input>
-                                      <b-form-input placeholder="Вид мероприятия" v-model="TypeEventsPortfolio"></b-form-input>
-                                      <b-form-input placeholder="Вид достижеения" v-model="TypeAchivement"></b-form-input>
-                                      <b-form-input placeholder="Уровень достижения" v-model="LevelAchivement"></b-form-input>
+                                      <b-form-input placeholder="Вид мероприятия"
+                                                    v-model="TypeEventsPortfolio"></b-form-input>
+                                      <b-form-input placeholder="Вид достижеения"
+                                                    v-model="TypeAchivement"></b-form-input>
+                                      <b-form-input placeholder="Уровень достижения"
+                                                    v-model="LevelAchivement"></b-form-input>
                                       <b-form-input placeholder="Документ" v-model="Document"></b-form-input>
                                     </div>
                                     <b-button @click="getPortfolioStudent">+ Добавить</b-button>
                                     <b-table striped hover :items="Portfolio">
                                     </b-table>
                                   </b-tab>
-
                                 </b-tabs>
-
-
-
                                 <div class="modal-footer">
-
                                 </div>
                               </div>
                             </div>
@@ -142,6 +143,7 @@
 
 <script>
 import {BButton, BFormCheckbox, BFormInput, BTab, BTable, BTabs} from "bootstrap-vue-3";
+import axios from "axios";
 
 
 export default {
@@ -149,45 +151,77 @@ export default {
   components: {BFormCheckbox, BFormInput, BTabs, BTab, BTable, BButton},
   data() {
     return {
-      fields: ["FIO", ""],
-      Group: [{
-        Name: "ИС-18",
-        Study: [{
-          FIO: "Костенко"
-        }]
-      }, {
-        Name: "ИС-19",
-        Study: []
-      }],
-      Family: [],
+      Group: {
+        Name: "",
+        student: ""
+      },
+      /*Family: [],
       FioFamily: '',
-      StatusFamily:'',
-      PhoneFamily:'',
-      WorkFamily:'',
-      AddressFamily:'',
+      StatusFamily: '',
+      PhoneFamily: '',
+      WorkFamily: '',
+      AddressFamily: '',
       date: new Date(),
       Call: [],
-      Base:'',
-      Calls:'',
+      Base: '',
+      Calls: '',
       MagnificationsStudent: [],
-      Magnifications:'',
+      Magnifications: '',
       Events: [],
-      TypeEvents:'',
-      NameEvents:'',
-      Role:'',
-      Note:'',
+      TypeEvents: '',
+      NameEvents: '',
+      Role: '',
+      Note: '',
       datee: new Date(),
       Portfolio: [],
-      NamePortfolio:'',
-      TypeEventsPortfolio:'',
-      TypeAchivement:'',
-      LevelAchivement:'',
-      Document:''
+      NamePortfolio: '',
+      TypeEventsPortfolio: '',
+      TypeAchivement: '',
+      LevelAchivement: '',
+      Document: ''*/
     }
 
 
   },
+
+
   methods: {
+
+    goToPage(g){
+      console.log(g)
+      this.$router.push(g)
+},
+
+    async findByStudy(group) {
+      let allStudents = await axios.get("http://26.141.216.128:3000/findByStudy/" + group)
+      /*console.log(this.Group.find((e) => e.Name== group ).Name)*/
+      let we = this.Group.map((e) => {
+        if (e.Name === group) {
+          console.log(e)
+          e.student = allStudents.data
+          return (e)
+        } else
+          return (e)
+      })
+      let cloneA = [...we]
+      console.log(cloneA)
+      /*      console.log(this.Group)*/
+      this.Group = we
+
+    },
+
+    async allGroups() {
+      let allGroup = await axios.get("http://26.141.216.128:3000/allGroup",)
+      this.Group = allGroup.data.map(e => {
+        return ({
+          Name: e._id,
+          student: [{FIO: "TEST"}]
+        })
+      })
+      console.log(this.Group)
+
+    },
+
     getFamilyStudent() {
       this.Family.push({
         FioFamily: this.FioFamily,
@@ -197,19 +231,19 @@ export default {
         AddressFamily: this.AddressFamily
       })
     },
-    getCallFamilyStudent(){
+    getCallFamilyStudent() {
       this.Call.push({
         Ddate: this.date,
         Base: this.Base,
         Calls: this.Calls
       })
     },
-    getMagnificationsStudent(){
+    getMagnificationsStudent() {
       this.MagnificationsStudent.push({
         Magnifications: this.Magnifications
       })
     },
-    getEventsStudent(){
+    getEventsStudent() {
       this.Events.push({
         TypeEvents: this.TypeEvents,
         NameEvents: this.NameEvents,
@@ -218,7 +252,7 @@ export default {
         DDdate: this.datee
       })
     },
-    getPortfolioStudent(){
+    getPortfolioStudent() {
       this.Portfolio.push({
         NamePortfolio: this.NamePortfolio,
         TypeEventsPortfolio: this.TypeEventsPortfolio,
@@ -228,5 +262,14 @@ export default {
       })
     }
   },
-};
+
+  mounted() {
+    this.allGroups();
+  },
+  /*watch: {
+    Group(cloneA){
+      console.log("cloneA")
+    }
+  }*/
+}
 </script>

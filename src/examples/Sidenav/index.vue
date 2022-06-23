@@ -12,7 +12,7 @@
         aria-hidden="true"
         id="iconSidenav"
       ></i>
-      <a class="m-0 navbar-brand" href="/">
+      <a class="m-0 navbar-brand" >
         <img
           :src="
             sidebarType === 'bg-white' ||
@@ -23,8 +23,7 @@
           class="navbar-brand-img h-100"
           alt="main_logo"
         />
-        <span class="ms-2 font-weight-bold text-white"
-          >Дипломный проект</span
+        <span class="ms-2 font-weight-bold text-white" v-text="rule34.rule"></span
         >
       </a>
     </div>
@@ -37,6 +36,8 @@ import SidenavList from "./SidenavList.vue";
 import logo from "@/assets/img/logo-ct.png";
 import logoDark from "@/assets/img/logo-ct-dark.png";
 import { mapState } from "vuex";
+import {rule34} from "@/My components/CallsWithATablet";
+
 
 export default {
   name: "index",
@@ -45,6 +46,7 @@ export default {
   },
   data() {
     return {
+      rule34,
       logo,
       logoDark,
     };

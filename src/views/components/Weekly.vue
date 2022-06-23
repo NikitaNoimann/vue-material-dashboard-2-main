@@ -14,8 +14,7 @@
             <div class="table-responsive p-0">
               <div className="nav-wrapper position-relative end-0">
                 <div>
-                  <b-button @click="getPosehaimost">ДАЙ ДАННЫЕ!!</b-button>
-                  <b-table striped hover :items="Test" :fields="['Студент', 'Предмет','ПропущеноБезУв','ПропущеноПоУв','Пропущено','Отметка']"></b-table>
+                  <b-table striped hover :items="Test" :fields="['fio','PropB','PropS', 'prop','pred','note']"></b-table>
                 </div>
               </div>
             </div>
@@ -28,30 +27,52 @@
 
 <script>
 
-import {BButton} from "bootstrap-vue-3";
+
+/*import {BButton} from "bootstrap-vue-3";*/
 import axios from "axios";
 export default {
+
   name: "Weekly",
-  components: {BButton},
+  /*components: {BButton},*/
   data() {
     return {
       Test: []
     }
-
   },
   methods: {
+
     async getPosehaimost() {
-      const Urlses = 'http://26.141.216.128:3000/posesh'
+      try {
 
-     this.Test = await (await axios.get(Urlses, {
-       headers: {
-         "Access-Control-Allow-Origin": "*"
-       }
+      const Test2 = await axios.get('http://26.141.216.128:3000/poseshget',)
+      this.Test = Test2.data
 
-     })).data.value
-
+    } catch (e) {
+        console.log("ОШИБКА")
+      }
+      console.log(this.Test)
     }
-  }
+    /*async findByStudy(group) {
+      let allStudents = await axios.get("http://26.141.216.128:3000/findByStudy/" + group)
+      /!*console.log(this.Group.find((e) => e.Name== group ).Name)*!/
+      let we = this.Group.map((e) => {
+        if (e.Name === group) {
+          console.log(e)
+          e.student = allStudents.data
+          return (e)
+        } else
+          return (e)
+      })
+      let cloneA = [...we]
+      console.log(cloneA)
+      /!*      console.log(this.Group)*!/
+      this.Group = we
+
+    },*/
+  },
+  mounted() {
+    this.getPosehaimost();
+  },
 }
 </script>
 

@@ -17,7 +17,7 @@
           class="pe-md-3 d-flex align-items-center"
           :class="isRTL ? 'me-md-auto' : 'ms-md-auto'"
         >
-          <vmd-input id="search" label="Search here" />
+<!--          <vmd-input id="search" label="Search here" />-->
         </div>
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -69,7 +69,7 @@
               aria-expanded="false"
               @click="showMenu = !showMenu"
             >
-              <i class="material-icons cursor-pointer"> notifications </i>
+<!--              <i class="material-icons cursor-pointer"> notifications </i>-->
             </a>
             <ul
               class="px-2 py-3 dropdown-menu dropdown-menu-end me-sm-n4"
@@ -185,7 +185,7 @@
   </nav>
 </template>
 <script>
-import VmdInput from "@/components/VmdInput.vue";
+/*import VmdInput from "@/components/VmdInput.vue";*/
 import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapState } from "vuex";
 
@@ -209,7 +209,7 @@ export default {
   },
   components: {
     Breadcrumbs,
-    VmdInput,
+ /*   VmdInput,*/
   },
   computed: {
     ...mapState(["isRTL", "isAbsolute"]),
