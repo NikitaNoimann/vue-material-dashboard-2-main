@@ -12,6 +12,7 @@ import Month from "@/views/components/Month";
 import GroupPage from "@/My components/GroupPage";
 import GroupPageRed from "@/My components/GroupPageRed";
 import start from "@/views/start";
+import Kommis from "@/views/components/Kommis";
 const routes = [
   {
     path: "/",
@@ -27,6 +28,12 @@ const routes = [
     path: "/tables",
     name: "Посещаемость",
     component: Tables,
+  },
+  {
+    path: "/kommis",
+    name: "Стипендиальная коммисия",
+    component: Kommis,
+
   },
   {
     path: "/start",

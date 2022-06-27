@@ -3,7 +3,7 @@
     <div>
       <b-card no-body>
         <b-tabs card>
-          <b-tab title="Материальная помощь" active>
+          <b-tab title="Материальная помощь" active v-if="rule34.rule === 'Admin' || rule34.rule === 'Куратор'">
             <MaterialAid></MaterialAid>
             <b-card-text></b-card-text>
             <b-table striped hover :items="store.stady"></b-table>
@@ -18,8 +18,14 @@
             <b-card-text></b-card-text>
             <b-table striped hover :items="store4.stady4"></b-table>
           </b-tab>
-          <b-tab title="Отчет куратора">
-            <b-card-text>Где-то записано</b-card-text>
+          <b-tab title="Отчет куратора" v-if="rule34.rule === 'Admin' || rule34.rule === 'Куратор'">
+            <CuratorOtchet></CuratorOtchet>
+          </b-tab>
+          <b-tab title="Посещаемость" >
+            <Poseshyaemost></Poseshyaemost>
+          </b-tab>
+          <b-tab title="Приказ о воспитательной работе" v-if="rule34.rule === 'Admin' || rule34.rule === 'Декан'">
+            <PrikazVospit></PrikazVospit>
           </b-tab>
         </b-tabs>
       </b-card>
@@ -35,14 +41,19 @@ import Incentives from "@/My components/Incentives";
 import {store2} from "@/My components/IncentivesMoney";
 import {store4} from "@/My components/CharacteristicsForASrudentStore";
 import CharacteristicsForAStudent from "@/My components/CharacteristicsForAStudent";
+import {rule34} from "@/My components/CallsWithATablet";
+import Poseshyaemost from "@/My components/Poseshyaemost";
+import CuratorOtchet from "@/My components/CuratorOtchet";
+import PrikazVospit from "@/My components/PrikazVospit";
 export default {
   name: "nav-pill",
-  components: {CharacteristicsForAStudent, MaterialAid, Incentives,},
+  components: {CharacteristicsForAStudent, MaterialAid, Incentives, Poseshyaemost , CuratorOtchet, PrikazVospit},
   mounted() {
     setNavPills();
   },
   data() {
     return {
+      rule34,
       store,
       store2,
       store4
@@ -50,3 +61,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.ImputsBil{
+  border: solid 1px #d2d6da;
+}
+</style>

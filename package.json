@@ -5,6 +5,7 @@
   "author": "Creative Tim",
   "license": "SEE LICENSE IN <https://www.creative-tim.com/license>",
   "description": "VueJS version of Material Dashboard 2 by Creative Tim",
+  "proxy": "http://localhost:9200",
   "homepage": "https://demos.creative-tim.com/vue-material-dashboard-2/",
   "bugs": {
     "url": "https://github.com/creativetimofficial/vue-material-dashboard-2/issues"

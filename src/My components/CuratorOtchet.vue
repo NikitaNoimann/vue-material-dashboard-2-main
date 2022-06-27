@@ -1,36 +1,42 @@
 <template>
   <div>
-    <div for="text" v-for="guest in guests" v-bind:key="guest" class="fles">
+    <input
+        class="e"
+        type="date"
+        :value="date"
+        @input="event => date = event.target.value">
+    <input
+        class="e"
+        type="date"
+        :value="date"
+        @input="event => date = event.target.value">
+    <p> </p>
 
-      <b-form-select :options="stud"></b-form-select>
-      <b-form-input  placeholder="Причина"/>
+    <div>
+      <b-button @click="renderDoc" variant="success">Сохранить Отчет</b-button>
     </div>
-    <button class="btn btn-primary" @click="addInput">+</button>
-    <b-button variant="success" @click="renderDoc">Сохранить Отчет</b-button>
   </div>
 </template>
 
 <script>
 import {store} from './MarerialAidStore'
-import {BButton, BFormInput,} from "bootstrap-vue-3";
+import {BButton} from "bootstrap-vue-3";
 
 import PizZip from "pizzip";
 import PizZipUtils from "pizzip/utils/index.js";
 
 // import JSZip from 'jszip';
 // import JSzipUtils from 'jszip-utils';
-import saveAs from 'file-saver';
+import  saveAs  from 'file-saver';
 // import docxtemplater from "docxtemplater";
-import Docxtemplater from "docxtemplater"
-import axios from "axios";
-
-function loadFile(url, callback) {
+import Docxtemplater from  "docxtemplater"
+function loadFile(url, callback)
+{
   PizZipUtils.getBinaryContent(url, callback);
 }
-
 export default {
   name: "MaterialAid",
-  components: {BFormInput, BButton},
+  components: {BButton},
   data() {
     return {
       store,
@@ -41,16 +47,10 @@ export default {
       options: [
         {value: 'ИС-18', text: 'ИС-18'},
         {value: 'ИС-19', text: 'ИС-19'}
-      ],
-      guests: [],
-      stud:[]
+      ]
     }
   },
   methods: {
-    async test(){
-      let res = await axios.get("http://26.141.216.128:3000/studmapget")
-      this.stud = res.data.map(e=>e.student+" "+e.groupe)
-    },
     save() {
       if (this.FIO && this.Cause) {
         store.stady.push({
@@ -61,7 +61,6 @@ export default {
         this.FIO = ''
         this.Cause = ''
       }
-
     },
 
     // getDoc() {
@@ -101,7 +100,7 @@ export default {
       let a = this.FIO
       let b = this.selected
       let c = this.Cause
-      loadFile("ReportTemplates/Matpomosh.docx", function (
+      loadFile("ReportTemplates/Kurator.docx", function (
           error,
           content
       ) {
@@ -123,31 +122,14 @@ export default {
               "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         });
         // Output the document using Data-URI
-        saveAs(out, "MatPomosh.docx");
+        saveAs(out, "Otchet Kurator.docx");
       });
-    },
-    addInput(){
-      this.guests.push({})
-    },
-    async test2(){
-      let res = await axios.get("http://26.141.216.128:3000/studmapget")
-      this.stud = res.data.map(e=>e.student+" "+e.groupe)
     }
-  },
-  mounted() {
-    this.test()
-    this.test2()
   }
 }
 
 </script>
 
 <style scoped>
-.ImputsBil {
-  border: solid 1px #d2d6da;
 
-}
-.ImputsBil:hover{
-  border: solid 1px #d2d6da;
-}
 </style>

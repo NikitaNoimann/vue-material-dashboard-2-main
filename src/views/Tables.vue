@@ -1,5 +1,16 @@
 <template>
+  <b-alert
+      variant="info"
+      dismissible
+      fade
+      :show="showDismissibleAlert"
+      @dismissed="showDismissibleAlert=false"
+      class="e"
+  >
+    Данные сохранены
+  </b-alert>
   <div class="container-fluid py-4">
+
     <div class="row">
       <div class="col-12">
         <div class="card my-4">
@@ -7,63 +18,34 @@
             <div
                 class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3"
             >
-              <h6 class="text-white text-capitalize ps-3">Еженедельный отчет о посещаемости</h6>
+              <h6 class="text-white text-capitalize ps-3">Посещаемость</h6>
             </div>
           </div>
           <div>
-            <input type="number" placeholder="номер недели"/>
-            <button @click="save">сохранить</button>
+            <input class="e" type="date" placeholder="номер недели" @input="(e)=>faceWeek(e.target.value)"/>
+            <button class="b" @click="e=> save(e)">сохранить</button>
           </div>
-          <div>
-            <table
-                class="table align-items-center justify-content-center mb-0"
-            >
-              <thead>
-              <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ФИО</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Пн</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Вт</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ср</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Чт</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Пт</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Суб</th>
-              </tr>
-              </thead>
-              <tbody v-for="s in students" :key="s">
-              <tr>
-                <td>{{ s.student }}</td>
-                <td><input @input="event =>test(event,s)" type="number" placeholder="ув"/>
-                  <b-form-input type="number" placeholder="не ув"/>
-                </td>
-                <td>
-                  <b-form-input type="number" placeholder=""/>
-                  <b-form-input type="number" placeholder="не ув"/>
-                </td>
-                <td>
-                  <b-form-input type="number" placeholder=""/>
-                  <b-form-input type="number" placeholder="не ув"/>
-                </td>
-                <td>
-                  <b-form-input type="number" placeholder=""/>
-                  <b-form-input type="number" placeholder="не ув"/>
-                </td>
-                <td>
-                  <b-form-input type="number" placeholder=""/>
-                  <b-form-input type="number" placeholder="не ув"/>
-                </td>
-                <td>
-                  <b-form-input type="number" placeholder=""/>
-                  <b-form-input type="number" placeholder="не ув"/>
-                </td>
-              </tr>
+          <div class="d">
+            <div v-for="s in students" :key="s" style="max-width: 20rem;">
+              <div class="w">
+                <h5> {{ s.student }}</h5>
+                <b-card class="mb-2">
+                  <div v-for="p in para" :key="p">
+                    <div>
+                      {{ p }}
+                      <b-form-select v-model="selected"
+                                     :options="['Был','Не был (уважительная)','Не был (не уважительная)']"></b-form-select>
+                    </div>
+                  </div>
+                </b-card>
+              </div>
+            </div>
 
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
+<!--    <div class="row">
       <div class="col-12">
         <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -115,8 +97,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
+
 </template>
 
 <script>
@@ -130,7 +113,9 @@ export default {
       rule34,
       students: [],
       numberWeek: 0,
-      answer: []
+      answer: [],
+      para: [],
+      showDismissibleAlert: false
     }
   },
   methods: {
@@ -139,14 +124,20 @@ export default {
         this.students = e.data
       })
     },
-    save() {
-      let a = {
-        group: rule34.group,
-        numberWeek: this.numberWeek,
-        students: this.answer
+    faceWeek(e) {
+      console.log(e)
+      if (e == '2022-04-01') {
+        this.para = ["1 Архитектура информационых систем", "2 Иформационные технологии", "3 Иформационные технологии", "4 Управление данными"]
+      } else if (e == '2022-04-02') {
+        this.para = ["2 Управление данными", "3 Нейронные сети",]
+      } else {
+        this.para = []
       }
-      a
-      console.log(this.answer)
+    },
+    save(e) {
+      e.target.value = null
+      this.numberWeek = 0
+      this.showDismissibleAlert = true
     },
     test(e, s) {
       let list = this.answer.filter((it) => it.student === s.student)
@@ -171,3 +162,29 @@ export default {
 
 
 </script>
+<style>
+.d {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.w {
+  padding: 5px;
+  flex-direction: row;
+}
+.e{
+  height: 40px;
+  margin: 5px;
+  border-radius: 5px;
+  background: #7a7f99;
+  color: #ffffff;
+  border: none;
+}
+.b{
+  height: 40px;
+  border-radius: 5px;
+  background: #7a7f99;
+  color: #ffffff;
+  border: none;
+}
+</style>

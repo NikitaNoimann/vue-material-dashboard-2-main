@@ -19,10 +19,10 @@
               <!--              eslint-disable -->
               <div v-for="g in Group">
                 <b-button variant="success" @click="goToPage(g.Name)">{{ g.Name }}</b-button>
-<!--                <b-button @click="findByStudy(g.Name)" v-b-toggle="g.Name" variant="primary">{{ g.Name }}</b-button>-->
+                <!--                <b-button @click="findByStudy(g.Name)" v-b-toggle="g.Name" variant="primary">{{ g.Name }}</b-button>-->
                 <b-collapse v-bind:id="g.Name" class="mt-2">
                   <b-card>
-                    <b-table striped hover :items="g.student" :fields="['student']" >
+                    <b-table striped hover :items="g.student" :fields="['student']">
                       <template #cell()="data">
                         <div>
                           <b-button cv-b-modal.modal data-bs-toggle="modal" data-bs-target="#exampleModal">Открыть
@@ -144,6 +144,7 @@
 <script>
 import {BButton, BFormCheckbox, BFormInput, BTab, BTable, BTabs} from "bootstrap-vue-3";
 import axios from "axios";
+import {rule34} from "@/My components/CallsWithATablet";
 
 
 export default {
@@ -151,6 +152,7 @@ export default {
   components: {BFormCheckbox, BFormInput, BTabs, BTab, BTable, BButton},
   data() {
     return {
+      rule34,
       Group: {
         Name: "",
         student: ""
@@ -187,10 +189,10 @@ export default {
 
   methods: {
 
-    goToPage(g){
+    goToPage(g) {
       console.log(g)
       this.$router.push(g)
-},
+    },
 
     async findByStudy(group) {
       let allStudents = await axios.get("http://26.141.216.128:3000/findByStudy/" + group)
@@ -210,8 +212,10 @@ export default {
 
     },
 
-    async allGroups() {
-      let allGroup = await axios.get("http://26.141.216.128:3000/allGroup",)
+    async allGroups(name) {
+      let allGroup = (name === "Куратор")
+          ? await axios.get("http://26.141.216.128:3000/allGroupCurator/ИС",)
+          : await axios.get("http://26.141.216.128:3000/allGroupCurator/*",)
       this.Group = allGroup.data.map(e => {
         return ({
           Name: e._id,
@@ -219,7 +223,6 @@ export default {
         })
       })
       console.log(this.Group)
-
     },
 
     getFamilyStudent() {
@@ -264,7 +267,7 @@ export default {
   },
 
   mounted() {
-    this.allGroups();
+    this.allGroups(rule34.rule);
   },
   /*watch: {
     Group(cloneA){

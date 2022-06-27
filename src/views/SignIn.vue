@@ -100,7 +100,6 @@ export default {
         this.rule34.group = e.data.group
         localStorage.setItem('Role',e.data.rule)
         localStorage.setItem('Group',e.data.group)
-        console.log(e)
       })
       this.$router.push("/")
     }

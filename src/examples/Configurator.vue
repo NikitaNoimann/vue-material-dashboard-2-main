@@ -21,8 +21,7 @@
       </div>
       <hr class="my-1 horizontal dark" />
       <div class="pt-0 card-body pt-sm-3">
-         Sidebar Backgrounds
-        <div>
+<!--        <div>
           <h6 class="mb-0">Цветовая палитра</h6>
         </div>
         <a href="#" class="switch-trigger background-color">
@@ -61,8 +60,7 @@
               @click="sidebarColor('danger')"
             ></span>
           </div>
-        </a>
-         Sidenav Type
+     </a>-->
         <div class="mt-3">
           <h6 class="mb-0">Фон панели навигации</h6>
           <p class="text-sm"></p>

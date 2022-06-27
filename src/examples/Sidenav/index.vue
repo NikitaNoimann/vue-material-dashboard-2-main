@@ -23,7 +23,7 @@
           class="navbar-brand-img h-100"
           alt="main_logo"
         />
-        <span class="ms-2 font-weight-bold text-white" v-text="rule34.rule"></span
+        <span class="ms-2 font-weight-bold text-white" v-text="rule34.rule +' ' + rule34.group || ''"></span
         >
       </a>
     </div>

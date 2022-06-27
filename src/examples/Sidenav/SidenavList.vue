@@ -32,7 +32,7 @@
         </sidenav-collapse>
       </li>
       </template>
-      <template v-if="rule34.rule === 'Admin'">
+      <template v-if="rule34.rule === 'Admin' || rule34.rule === 'Куратор' || rule34.rule === 'Декан'">
       <li class="nav-item">
         <sidenav-collapse
           url="#"
@@ -60,7 +60,7 @@
 <!--          </template>-->
 <!--        </sidenav-collapse>-->
 <!--      </li>-->
-      <template v-if="rule34.rule === 'Admin'">
+      <template v-if="rule34.rule === 'Admin' || rule34.rule === 'Куратор' || rule34.rule === 'Декан'">
       <li class="nav-item">
         <sidenav-collapse
             url="#"
@@ -74,6 +74,21 @@
           </template>
         </sidenav-collapse>
       </li>
+      </template>
+      <template v-if="rule34.rule === 'Admin' || rule34.rule === 'Декан'">
+        <li class="nav-item">
+          <sidenav-collapse
+              url="#"
+              :aria-controls="''"
+              v-bind:collapse="false"
+              collapseRef="/kommis"
+              navText="Стип. коммисия"
+          >
+            <template v-slot:icon>
+              <i class="material-icons-round opacity-10 fs-5">receipt_long</i>
+            </template>
+          </sidenav-collapse>
+        </li>
       </template>
       <li class="mt-3 nav-item">
         <h6
